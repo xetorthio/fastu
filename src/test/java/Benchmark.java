@@ -29,9 +29,8 @@ public class Benchmark {
         }
 
         long elapsed = Calendar.getInstance().getTimeInMillis() - begin;
-
-        System.out.println(((1000 * TOTAL_OPERATIONS) / elapsed)
-                + " ops with native java.");
+        long opsNative = (1000 * TOTAL_OPERATIONS) / elapsed;
+        System.out.println(opsNative + " ops with native java.");
 
         begin = Calendar.getInstance().getTimeInMillis();
 
@@ -40,8 +39,9 @@ public class Benchmark {
         }
 
         elapsed = Calendar.getInstance().getTimeInMillis() - begin;
+        long opsFastu = (1000 * TOTAL_OPERATIONS) / elapsed;
+        System.out.println(opsFastu + " ops with Fastu.");
 
-        System.out.println(((1000 * TOTAL_OPERATIONS) / elapsed)
-                + " ops with Fastu.");
+        System.out.println((double) opsFastu / (double) opsNative);
     }
 }
