@@ -12,29 +12,70 @@ public class Fastu {
                 len++;
                 offset++;
             } else {
-                int size = 0;
                 int uc = 0;
                 if ((data[offset] & 0xE0) == 0xC0) {
-                    size = 1;
                     uc = (int) (data[offset] & 0x1F);
-                } else if ((data[offset] & 0xF0) == 0xE0) {
-                    size = 2;
-                    uc = (int) (data[offset] & 0x0F);
-                } else if ((data[offset] & 0xF8) == 0xF0) {
-                    size = 3;
-                    uc = (int) (data[offset] & 0x07);
-                } else if ((data[offset] & 0xFC) == 0xF8) {
-                    size = 4;
-                    uc = (int) (data[offset] & 0x03);
-                } else if ((data[offset] & 0xFE) == 0xFC) {
-                    size = 5;
-                    uc = (int) (data[offset] & 0x01);
-                }
-                ++offset;
-                int limit = offset + size;
-                for (; offset < limit; offset++) {
+                    offset++;
                     uc <<= 6;
                     uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+                } else if ((data[offset] & 0xF0) == 0xE0) {
+                    uc = (int) (data[offset] & 0x0F);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+
+                } else if ((data[offset] & 0xF8) == 0xF0) {
+                    uc = (int) (data[offset] & 0x07);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+
+                } else if ((data[offset] & 0xFC) == 0xF8) {
+                    uc = (int) (data[offset] & 0x03);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+
+                } else if ((data[offset] & 0xFE) == 0xFC) {
+                    uc = (int) (data[offset] & 0x01);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
+                    uc <<= 6;
+                    uc |= (int) (data[offset] & 0x3F);
+                    offset++;
                 }
 
                 len = toChars(uc, chars, len);
